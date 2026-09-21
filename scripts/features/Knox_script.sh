@@ -103,8 +103,8 @@ PATCH_SECURE_FOLDER() {
     fi
 
     echo "${YELLOW}Patching secure folder.${RESET}"
-
-	local FILE_1="${1}/smali/com/android/server/knox/dar/DarManagerService.smali"
+	
+    local FILE_1="${1}/smali/com/android/server/knox/dar/DarManagerService.smali"
 	local METHOD_NAME_1=".method public final checkDeviceIntegrity([Ljava/security/cert/Certificate;)Z"
 	local METHOD_NAME_2=".method public final isDeviceRootKeyInstalled()Z"
     local METHOD_NAME_3=".method public final isKnoxKeyInstallable()Z"
@@ -268,4 +268,17 @@ PATCH_SSRM() {
 
     sed -i "s/\(const-string v[0-9]\+,\s*\"\)siop_[^\"]*\"/\1$STOCK_SIOP_FILENAME\"/g" "$FILE"
     sed -i "/dvfs_policy_default/! s/\(const-string v[0-9]\+,\s*\"\)dvfs_policy_[^\"]*\"/\1$STOCK_DVFS_FILENAME\"/g" "$FILE"
+}
+
+NUKE_WSM() {
+    echo ""
+    echo "${YELLOW}Nuking WSM components.${RESET}"
+
+    DELETE_FROM_WORK_DIR "system" "system/etc/public.libraries-wsm.samsung.txt"
+    DELETE_FROM_WORK_DIR "system" "system/lib/libhal.wsm.samsung.so"
+    DELETE_FROM_WORK_DIR "system" "system/lib/vendor.samsung.hardware.security.wsm.service-V1-ndk.so"
+    DELETE_FROM_WORK_DIR "system" "system/lib64/libhal.wsm.samsung.so"
+    DELETE_FROM_WORK_DIR "system" "system/lib64/vendor.samsung.hardware.security.wsm.service-V1-ndk.so"
+
+    echo "${GREEN}WSM files removed successfully.${RESET}"
 }
