@@ -271,14 +271,11 @@ PATCH_SSRM() {
 }
 
 NUKE_WSM() {
-    echo ""
-    echo "${YELLOW}Nuking WSM components.${RESET}"
-
-    DELETE_FROM_WORK_DIR "system" "system/etc/public.libraries-wsm.samsung.txt"
-    DELETE_FROM_WORK_DIR "system" "system/lib/libhal.wsm.samsung.so"
-    DELETE_FROM_WORK_DIR "system" "system/lib/vendor.samsung.hardware.security.wsm.service-V1-ndk.so"
-    DELETE_FROM_WORK_DIR "system" "system/lib64/libhal.wsm.samsung.so"
-    DELETE_FROM_WORK_DIR "system" "system/lib64/vendor.samsung.hardware.security.wsm.service-V1-ndk.so"
-
-    echo "${GREEN}WSM files removed successfully.${RESET}"
+    local EXTRACTED_FIRM_DIR="$1"
+    echo "${YELLOW}- Nuking WSM components.${RESET}"
+    rm -rf "$EXTRACTED_FIRM_DIR/system/system/etc/public.libraries-wsm.samsung.txt"
+    rm -rf "$EXTRACTED_FIRM_DIR/system/system/lib/libhal.wsm.samsung.so"
+    rm -rf "$EXTRACTED_FIRM_DIR/system/system/lib/vendor.samsung.hardware.security.wsm.service-V1-ndk.so"
+    rm -rf "$EXTRACTED_FIRM_DIR/system/system/lib64/libhal.wsm.samsung.so"
+    rm -rf "$EXTRACTED_FIRM_DIR/system/system/lib64/vendor.samsung.hardware.security.wsm.service-V1-ndk.so"
 }
